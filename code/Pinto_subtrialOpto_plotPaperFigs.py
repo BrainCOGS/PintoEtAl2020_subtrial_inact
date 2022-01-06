@@ -40,7 +40,7 @@
 # ==============================================================================
 # %% initialize
 # declare directories (change as appropriate)
-root_dir =  '/Users/lucas/OneDrive - Northwestern University/PintoEtAl2020_subtrial_inact/' # repository path
+root_dir =  'Volumes/braininit/papers/PintoEtAl2020_subtrial_inact/' # path root
 code_dir = '{}code/'.format(root_dir) # where code is
 data_dir = '{}data/'.format(root_dir) # where data is saved
 fig_dir  = '{}figs_revision/'.format(root_dir) # where figs are saved
