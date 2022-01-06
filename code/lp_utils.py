@@ -131,7 +131,7 @@ def plotPvalCircles(axisHandle, x, y, p, isSig = None, where='above',rotate=Fals
         isSig = p < 0.05
 
     xoffset = (x[-1] - x[0])/12 # offset is an order of magnitude smaller
-    yoffset = np.mean(abs(y)) / 3
+    yoffset = np.nanmean(abs(y)) / 3
     if where == 'below':
         yoffset = yoffset * -1
 
@@ -288,3 +288,11 @@ def wf_ROIlbl_translate(ROIlbl):
             area_names[iArea] = 'M1'
 
     return area_names
+
+# ==============================================================================
+# calculate fit R2 from data and prediction
+def fit_rsquare(data,pred):
+    residuals = data - pred
+    ss_res    = np.sum(residuals**2)
+    ss_tot    = np.sum((data-np.mean(data))**2)
+    return 1 - (ss_res / ss_tot)
