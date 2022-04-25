@@ -15,6 +15,7 @@ import mat73
 from   scipy.io import loadmat
 import pingouin as pg
 import pandas as pd
+import copy
 
 wf_params = {
             'glm_comp_file'         : '/Users/lpinto/Dropbox/PintoEtAl2020_subtrial_inact/data/dffGLM_autoregr_model_comp_time.mat',
@@ -139,7 +140,7 @@ def analyze_timescales(glm,glm_summ):
             glm_summ['acorr_weights'][iArea,:,iMouse] = glm_summ['acorr_weights'][iArea,:,iMouse] \
                                                         / glm_summ['acorr_weights'][iArea,0,iMouse]
             fit , _   = sp.optimize.curve_fit(exp_decay, glm_summ['acorr_lags'], \
-                                              glm_summ['acorr_weights'][iArea,:,iMouse], maxfev=4000, bounds=[0, 1])
+                                              glm_summ['acorr_weights'][iArea,:,iMouse], maxfev=4000, bounds=[0.01, 1])
             glm_summ['taus'][iArea,iMouse]             = fit[0]
             glm_summ['acorr_fit_mice'][iArea,:,iMouse] = exp_decay(glm_summ['acorr_xaxis'],*fit)
             glm_summ['acorr_fit_r2'][iArea,iMouse]     = utils.fit_rsquare(glm_summ['acorr_weights'][iArea,:,iMouse], \
@@ -158,7 +159,7 @@ def analyze_timescales(glm,glm_summ):
     glm_summ['acorr_fit_pred']     = np.zeros((num_areas,np.size(glm_summ['acorr_xaxis'])))
     for iArea in range(num_areas):
         fit , _ = sp.optimize.curve_fit(exp_decay, glm_summ['acorr_lags'], \
-                                        glm_summ['acorr_weights_mean'][iArea,:], maxfev=4000, bounds=[0, 1])
+                                        glm_summ['acorr_weights_mean'][iArea,:], maxfev=4000, bounds=[0.01, 1])
         glm_summ['acorr_fit_pred'][iArea,:] = exp_decay(glm_summ['acorr_xaxis'],*fit)
 
     return glm_summ
@@ -388,7 +389,7 @@ def plot_tower_weights(glm_summ,plot_median=True):
 
 # ==============================================================================
 # plot glm timescales
-def plot_glm_timescales(glm_summ,glm,plot_median=True):
+def plot_glm_timescales(glm_summ,glm,plot_median=True,wf_params=wf_params):
 
     """
     fig, figdata = plot_glm_timescales(glm_summ,glm,plot_median=True)

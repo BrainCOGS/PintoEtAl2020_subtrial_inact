@@ -158,7 +158,7 @@ glm      = wf.load_glm(wf_params=wf_params) # load mat files
 glm_summ = wf.summarize_glm(glm) # summarize and do stats for figure
 fig4 , fig4_data = wf.plot_glm_timescales(glm_summ,glm) # plot
 fig4.savefig('{}fig4_glm.pdf'.format(fig_dir)) # save
-fl.save('{}fig4_sourceData.hdf5'.format(fig_dir),fig3_data)
+fl.save('{}fig4_sourceData.hdf5'.format(fig_dir),fig4_data)
 
 # %% ===========================================================================
 # Fig S6: other ROI activity predictors
